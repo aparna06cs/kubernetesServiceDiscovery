@@ -1,0 +1,51 @@
+zuul:
+  #Service will be mapped under the /api URI
+  prefix: /api
+  routes:
+    hello-server:
+      path: /server/**
+      url: http://localhost:8071
+    hello-client:
+      path: /client/**
+      serviceId: HELLO-CLIENT
+eureka:
+  instance:
+    preferIpAddress: false
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://WKWIN8430178.global.publicisgroupe.net:8070/eureka
+server:
+  port: 8079
+
+spring:
+  application:
+    name: zuul-service
+    
+default:
+  ribbon:
+    ReadTimeout: 15000
+    ConnectTimeout: 10000
+    MaxAutoRetries: 2
+    MaxTotalHttpConnections: 1000
+    MaxConnectionsPerHost: 100
+    ServerListRefreshInterval: 1000
+
+ribbon:
+  ReadTimeout: 15000
+  ConnectTimeout: 10000
+  MaxAutoRetries: 2
+  MaxAutoRetriesNextServer: 2
+  MaxTotalHttpConnections: 1000
+  MaxHttpConnectionsPerHost: 100
+  ActiveConnectionsLimit: 400
+  ServerListRefreshInterval: 1000
+  
+# Increase the Hystrix timeout to 60s (for all)
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 225000

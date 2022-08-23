@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: zuul-service
+    service: zuul-service
+  name: zuul-service
+  namespace: dev2
+spec:
+  ports:
+    - name: tcp-8079-8079-zuul-service
+      protocol: TCP
+      port: 8079
+      targetPort: 8079
+  selector:
+    app: zuul-service
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zuul-service
+spec:
+  selector:
+    matchLabels:
+      app: zuul-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zuul-service
+    spec:
+      containers:
+        - name: zuul-service
+          image: gcr.io/t-operative-348503/zuul-service:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8079
+          env:
+           - name: SPRING_PROFILES_ACTIVE
+             value: "dev2"
