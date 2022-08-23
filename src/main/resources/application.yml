@@ -4,17 +4,17 @@ zuul:
   routes:
     hello-server:
       path: /server/**
-      url: http://localhost:8071
+      serviceId: hello-server
     hello-client:
       path: /client/**
-      serviceId: HELLO-CLIENT
-eureka:
-  instance:
-    preferIpAddress: false
-    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    service-url:
-      defaultZone: http://WKWIN8430178.global.publicisgroupe.net:8070/eureka
+      serviceId: hello-client
+#eureka:
+  #instance:
+    #preferIpAddress: false
+    #instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  #client:
+    #service-url:
+      #defaultZone: http://WKWIN8430178.global.publicisgroupe.net:8070/eureka
 server:
   port: 8079
 
