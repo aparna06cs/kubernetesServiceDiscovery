@@ -11,13 +11,6 @@ zuul:
     inventory:
       path: /inventory/**
       serviceId: inventory
-eureka:
-  instance:
-    preferIpAddress: false
-    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    service-url:
-      defaultZone: http://eureka-service:8070/eureka
 server:
   port: 8079
 
@@ -33,12 +26,6 @@ default:
     MaxTotalHttpConnections: 1000
     MaxConnectionsPerHost: 100
     ServerListRefreshInterval: 1000\
-hello-server:
-    ribbon:
-      listOfServers: http://hello-server:8071
-hello-client:
-    ribbon:
-      listOfServers: http://hello-client:8072
 ribbon:
   ReadTimeout: 15000
   ConnectTimeout: 10000
